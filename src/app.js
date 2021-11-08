@@ -10,19 +10,21 @@ app.use(express.json());
 
 app.get('/teste', async (req, res) => {
 
+
 });
 
-
-
-app.get('/oi', async (req,res)=>{
-    try{
-        console.log("OI");
-        res.status(200).send("OI");
-    }catch(err){
-        console.log(err);
+app.get('/oi', async (req, res)=>{
+    try {
+        res.status(201).send('ola');
+    } catch (error) {
+        console.log(error);
         res.sendStatus(500);
+
     }
-});
+}
+);
+
+
 
 
 
