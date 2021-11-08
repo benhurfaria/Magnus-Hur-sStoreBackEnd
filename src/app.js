@@ -27,7 +27,9 @@ app.get('/oi', async (req, res) => {
     }
 });
 
-
+app.get('/xablau', (req,res)=>{
+    res.sendStatus(500);
+})
 
 
 export default app;
