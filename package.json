@@ -5,7 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:prod": "NODE_ENV='prod' node ./src/server.js",
+    "start:test": "node ./src/server.js",
+    "test": "npx jest"
   },
   "keywords": [],
   "author": "",
