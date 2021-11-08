@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 
-app.get("/oi", (req,res)=>{
+app.get("/oi", async (req,res)=>{
     try{
         console.log("OI");
         res.send("OI");
