@@ -8,17 +8,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/teste', async (req, res) => {
 
-app.get("/", async (req,res)=>{
-    
+});
+
+
+
+
+
+app.get('/oi', async (req,res)=>{
     try{
-        
-
-       
-        
-            res.sendStatus(401);
-        
-    }catch{
+        console.log("OI");
+        res.status(200).send("OI");
+    }catch(err){
+        console.log(err);
         res.sendStatus(500);
     }
 });
