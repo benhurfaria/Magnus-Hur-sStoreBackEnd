@@ -18,6 +18,14 @@ app.get('/teste', async (req, res) => {
 }
 );
 
+app.get('/oi', async (req, res) => {
+    try {
+        res.status(200).send('ola mundo');
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
 
 
 
