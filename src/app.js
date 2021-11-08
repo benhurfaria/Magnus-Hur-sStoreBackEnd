@@ -9,16 +9,19 @@ app.use(cors());
 app.use(express.json());
 
 
-app.get("/oi", async (req,res)=>{
+app.get("/", async (req,res)=>{
+    
     try{
-        console.log("OI");
-        res.send("OI");
-    }catch(err){
-        console.log(err);
+        
+
+       
+        
+            res.sendStatus(401);
+        
+    }catch{
         res.sendStatus(500);
     }
 });
-
 
 
 
