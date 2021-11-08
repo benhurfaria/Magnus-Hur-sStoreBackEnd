@@ -8,7 +8,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/teste', async (req, res) => {
 
+    try {
+        res.status(201).send('ola');
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+
+    }
+}
+)
 
 
 
