@@ -10,7 +10,13 @@ app.use(express.json());
 
 
 app.get("/oi", (req,res)=>{
-    res.send("OI");
+    try{
+        console.log("OI");
+        res.send("OI");
+    }catch(err){
+        console.log(err);
+        res.sendStatus(500);
+    }
 });
 
 
