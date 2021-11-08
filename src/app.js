@@ -9,9 +9,9 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/teste', async (req, res) => {
-    console.log('ok');
+
     try {
-        res.send(200);
+        res.status(201).send('ok');
     } catch (error) {
         console.log(error);
         res.sendStatus(500);
