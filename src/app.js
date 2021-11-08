@@ -23,16 +23,6 @@ app.get('/teste', async (req, res) => {
 
 
 
-app.get('/oi', async (req,res)=>{
-    try{
-        console.log("OI");
-        res.status(200).send("OI");
-    }catch(err){
-        console.log(err);
-        res.sendStatus(500);
-    }
-});
-
 
 
 
