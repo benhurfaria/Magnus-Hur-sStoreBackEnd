@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.get('/teste', async (req, res) => {
 
-    console.log('ok')
+  
     try {
         res.status(201).send('ola');
     } catch (error) {
