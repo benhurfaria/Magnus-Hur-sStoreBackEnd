@@ -17,17 +17,17 @@ async function signIn(req,res){
     }=req.body;
    
     try{
-        console.log("OII");
+        
         const user = await connection.query(`
             SELECT * FROM usuario WHERE email = $1;
         `, [email]);
 
-        console.log("OII2");
+        
         if(user.rowCount === 0){
             res.sendStatus(401);
             return;
         }
-        console.log("OII");
+        
         const encryptedPassword = user.rows[0].password;
         if(!bcrypt.compareSync(password, encryptedPassword)){
             res.sendStatus(401);
