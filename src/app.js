@@ -1,8 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import bcrypt from 'bcrypt';
-import { v4 as uuid } from 'uuid';
-import connection from './database.js';
+import { signIn } from '../controllers/sign-in.js';
 
 const app = express();
 app.use(cors());
@@ -31,5 +29,6 @@ app.get('/xablau', (req,res)=>{
     res.sendStatus(500);
 })
 
+app.post("/sign-in", signIn);
 
 export default app;
