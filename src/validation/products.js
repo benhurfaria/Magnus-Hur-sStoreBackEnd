@@ -10,15 +10,3 @@ const productSchema = joi.object({
 export {
     productSchema,
 }
-
-
-// {
-//     scheme: [
-//         'jpg',
-//         /jpg\+https?/,
-//         'png',
-//         /png\+https?/,
-//         'jpeg',
-//         /jpeg\+https?/,
-//     ]
-// }

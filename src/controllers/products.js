@@ -62,7 +62,6 @@ async function postProducts(req, res) {
         return res.sendStatus(201);
 
     } catch (error) {
-        console.log(error)
         return res.status(500).send({message: "O banco de dados está offline"});
     }
 }
