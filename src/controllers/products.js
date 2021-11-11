@@ -66,7 +66,27 @@ async function postProducts(req, res) {
     }
 }
 
+async function getProductById(req, res) {
+    const {
+        id
+    } = req.params;
+
+    try {
+        const product = await connection.query(`SELECT * FROM products WHERE id = $1;`, [id]);
+
+        if (!product.rowCount) {
+            return res.sendStatus(404);
+        }
+
+        res.status(200).send(product.rows[0]);
+
+    } catch (error) {
+        return res.status(500).send({message: "O banco de dados está offline"});
+    }
+}
+
 export {
     getProducts,
     postProducts,
+    getProductById,
 }
