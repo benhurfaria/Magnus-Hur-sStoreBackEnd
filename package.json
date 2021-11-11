@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start:prod": "NODE_ENV=prod npx nodemon ./src/server.js",
+    "start:test": "NODE_ENV=test npx jest",
     "test": "npx jest"
   },
   "keywords": [],
@@ -23,6 +24,7 @@
     "joi": "^17.4.2",
     "pg": "^8.7.1",
     "react-router-dom": "^6.0.2",
+    "supertest": "^6.1.6",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
