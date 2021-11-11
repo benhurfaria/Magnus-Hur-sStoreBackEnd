@@ -3,6 +3,7 @@ import cors from 'cors';
 import bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
 import connection from './database.js';
+import { getProducts, postProducts } from './controllers/products.js';
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,10 @@ app.get('/oi', async (req, res)=>{
     }
 }
 );
+
+// ------HOME------
+app.get('/products', getProducts);
+app.post('/products', postProducts);
 
 
 
