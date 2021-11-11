@@ -1,7 +1,7 @@
-import connection from "../src/database.js";
+import connection from "../database.js";
 import bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
-import {signInSchema} from "../schemas/userSchema.js"
+import {signInSchema} from "../../schemas/userSchema.js"
 
 async function signIn(req,res){
     const validate = signInSchema.validate(req.body);
@@ -35,7 +35,7 @@ async function signIn(req,res){
         }
 
         const token = uuid();
-        console.log(token);
+        
         await connection.query(`
             INSERT INTO sessions ("idUser", token) VALUES ($1, $2);
         `, [user.rows[0].id, token]);

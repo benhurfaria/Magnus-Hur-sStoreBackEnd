@@ -5,8 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/server.js",
-    "start:prod": "NODE_ENV='prod' npx nodemon ./src/server.js",
+    "start:prod": "NODE_ENV=prod npx nodemon ./src/server.js",
+    "start:test": "NODE_ENV=test npx jest",
     "test": "npx jest"
   },
   "keywords": [],
@@ -23,6 +23,7 @@
     "jest": "^27.3.1",
     "joi": "^17.4.2",
     "pg": "^8.7.1",
+    "supertest": "^6.1.6",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
