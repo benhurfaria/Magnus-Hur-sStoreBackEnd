@@ -1,8 +1,27 @@
 import connection from "../database.js";
+import { productSchema } from "../validation/products.js";
 
 async function getProducts(req, res) {
+    const {
+        ordenacao
+    } = req.query;
+
+    let query = 'SELECT * FROM products '
+
+    if (ordenacao === 'alpha') {
+        query += 'ORDER BY name ASC'
+    }
+
+    if (ordenacao === 'lowerPrice') {
+        query += 'ORDER BY price ASC'
+    }
+
+    if (ordenacao === 'higherPrice') {
+        query += 'ORDER BY price DESC'
+    }
+
     try {
-        const products = await connection.query(`SELECT * FROM products;`);
+        const products = await connection.query(`${query};`);
 
         res.status(200).send(products.rows);
 
@@ -18,6 +37,18 @@ async function postProducts(req, res) {
         imgeUrl,
         descrition,
     } = req.body;
+
+    const validate = productSchema.validate({
+        name,
+        price,
+        imgeUrl,
+        descrition,
+    })
+
+    if (validate.error) {
+        res.status(400).send(validate.error.message);
+        return
+    }
 
     try {
 
