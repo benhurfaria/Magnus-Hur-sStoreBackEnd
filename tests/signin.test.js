@@ -1,8 +1,8 @@
-import '../setup.js';
-import app from '../app.js';
+import '../src/setup.js';
+import app from '../src/app.js';
 import supertest from 'supertest';
-import connection from '../database.js';
-import { validBodyFactorySignup } from '../factories/signup.factory.js';
+import connection from '../src/database.js';
+import { validBodyFactorySignup } from '../src/factories/signup.factory.js';
 import bcrypt from 'bcrypt';
 
 afterAll(async () => {
