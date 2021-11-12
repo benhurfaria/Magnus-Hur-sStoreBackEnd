@@ -2,13 +2,22 @@ import pg from 'pg';
 
 const { Pool } = pg;
 
-const databaseConfig = {
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT),
-  database: process.env.DB_NAME,
-};
+let databaseConfig = {
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+}
+
+if (process.env.NODE_ENV === 'prod') {
+    databaseConfig = {
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false
+        }
+    }
+}
 
 const connection = new Pool(databaseConfig);
 
