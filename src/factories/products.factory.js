@@ -1,6 +1,6 @@
 import faker from "faker";
 
-function validBodyFactoryPorduct() {
+function validBodyFactoryProduct() {
     return {
         name: faker.name.findName(),
         price: faker.datatype.number(),
@@ -9,7 +9,7 @@ function validBodyFactoryPorduct() {
     };
 }
 
-function invalidBodyFactoryPorduct() {
+function invalidBodyFactoryProduct() {
     return {
         name: faker.name.findName(),
         imgeUrl: faker.internet.avatar(),
@@ -17,4 +17,4 @@ function invalidBodyFactoryPorduct() {
     };
 }
 
-export { validBodyFactoryPorduct, invalidBodyFactoryPorduct };
+export { validBodyFactoryProduct, invalidBodyFactoryProduct };

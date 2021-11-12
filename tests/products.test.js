@@ -4,12 +4,12 @@ import app from "../src/app";
 import connection from "../src/database.js";
 
 import {
-    validBodyFactoryPorduct,
-    invalidBodyFactoryPorduct,
+    validBodyFactoryProduct,
+    invalidBodyFactoryProduct,
 } from "../src/factories/products.factory.js";
 
 beforeAll(async () => {
-    const validBody = validBodyFactoryPorduct();
+    const validBody = validBodyFactoryProduct();
 
     await connection.query(
         `
@@ -40,8 +40,8 @@ describe("GET /products", () => {
 });
 
 describe("POST /products", () => {
-    const validBody = validBodyFactoryPorduct();
-    const invalidBody = invalidBodyFactoryPorduct();
+    const validBody = validBodyFactoryProduct();
+    const invalidBody = invalidBodyFactoryProduct();
 
     test("returns status 201 for valid body", async () => {
         const result = await supertest(app).post("/products").send(validBody);
@@ -57,14 +57,21 @@ describe("POST /products", () => {
 });
 
 describe("GET /products/:id", () => {
+    
     test("returns status 404 for invalid id", async () => {
-        const result = await supertest(app).get("/products/50");
+        let idValid = await connection.query(`SELECT * FROM products;`);
+        idValid = idValid.rows[0].id;
+        
+        const result = await supertest(app).get(`/products/${idValid+50}`);
         const status = result.status;
         expect(status).toEqual(404);
     });
 
     test("returns status 200 for valid id", async () => {
-        const result = await supertest(app).get("/products/1");
+        let idValid = await connection.query(`SELECT * FROM products;`);
+        idValid = idValid.rows[0].id;
+        
+        const result = await supertest(app).get(`/products/${idValid}`);
         const status = result.status;
         expect(status).toEqual(200);
     });
