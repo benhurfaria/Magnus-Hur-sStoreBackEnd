@@ -8,4 +8,13 @@ function validBodyFactorySignup() {
   };
 }
 
-export { validBodyFactorySignup };
+function invalidBodyFactorySignup() {
+  return {
+    name: faker.name.findName(),
+    email: faker.lorem.words(),
+    password: faker.internet.password(),
+  };
+}
+
+export { validBodyFactorySignup, invalidBodyFactorySignup };
+
