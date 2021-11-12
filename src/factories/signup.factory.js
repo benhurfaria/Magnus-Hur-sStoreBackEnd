@@ -17,3 +17,4 @@ function invalidBodyFactorySignup() {
 }
 
 export { validBodyFactorySignup, invalidBodyFactorySignup };
+
