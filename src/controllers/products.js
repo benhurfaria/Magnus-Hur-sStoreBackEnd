@@ -26,6 +26,7 @@ async function getProducts(req, res) {
         res.status(200).send(products.rows);
 
     } catch (error) {
+        console.log(error)
         return res.status(500).send({message: "O banco de dados está offline"});
     }
 }
@@ -78,7 +79,7 @@ async function getProductById(req, res) {
             return res.sendStatus(404);
         }
 
-        res.status(200).send(product.rows[0]);
+        return res.status(200).send(product.rows[0]);
 
     } catch (error) {
         return res.status(500).send({message: "O banco de dados está offline"});
