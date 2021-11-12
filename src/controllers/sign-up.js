@@ -2,8 +2,8 @@ import connection from "../database.js";
 import { signUpSchema } from "../../schemas/userSchema.js";
 import bcrypt from 'bcrypt';
 
-function signUp(req, res){
-
+async function signUp(req, res){
+    
     const validation = signUpSchema.validate(req.body);
 
     if(validation.error){
@@ -20,7 +20,7 @@ function signUp(req, res){
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
     try{
-        connection.query(`
+        await connection.query(`
             INSERT INTO usuario (name, email, password) VALUES ($1, $2, $3);
         `, [name, email, encryptedPassword]);
 
@@ -29,6 +29,10 @@ function signUp(req, res){
         return;
 
     } catch (error){
+        if(error.code === "23505"){
+            res.sendStatus(409);
+            return;
+        }
         res.sendStatus(500);
         return;
     }
