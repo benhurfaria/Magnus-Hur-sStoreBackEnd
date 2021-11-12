@@ -5,8 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    
-    "start": "node ./src/server.js",
+    "start:prod": "NODE_ENV='prod' node ./src/server.js",
+    "start:test": "node ./src/server.js",
     "test": "npx jest"
   },
   "keywords": [],
@@ -22,12 +22,16 @@
     "express": "^4.17.1",
     "jest": "^27.3.1",
     "pg": "^8.7.1",
+    "supertest": "^6.1.6",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "^2.25.2",
-    "faker": "^5.5.3"
+    "faker": "^5.5.3",
+    "husky": "^7.0.4",
+    "prettier": "2.4.1"
   }
 }
