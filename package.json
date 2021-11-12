@@ -7,7 +7,7 @@
   "scripts": {
     "start:prod": "NODE_ENV='prod' npx nodemon ./src/server.js",
     "start:dev": "NODE_ENV='dev' npx nodemon ./src/server.js",
-    "start:test": "NODE_ENV=test npx jest",
+    "start:test": "NODE_ENV='test' npx jest --watch",
     "test": "npx jest"
   },
   "keywords": [],
@@ -24,7 +24,6 @@
     "jest": "^27.3.1",
     "joi": "^17.4.2",
     "pg": "^8.7.1",
-    "react-router-dom": "^6.0.2",
     "supertest": "^6.1.6",
     "uuid": "^8.3.2"
   },
