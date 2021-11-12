@@ -1,7 +1,7 @@
-import connection from "../database.js";
-import bcrypt from "bcrypt";
-import { v4 as uuid } from "uuid";
-import { signInSchema } from "../../schemas/userSchema.js";
+import connection from '../database.js';
+import bcrypt from 'bcrypt';
+import { v4 as uuid } from 'uuid';
+import { signInSchema } from '../../schemas/userSchema.js';
 
 async function signIn(req, res) {
   const validate = signInSchema.validate(req.body);
