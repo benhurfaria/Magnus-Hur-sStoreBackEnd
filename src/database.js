@@ -1,15 +1,14 @@
-import pg from 'pg';
+import pg from "pg";
 
 const { Pool } = pg;
 
 const databaseConfig = {
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    host: process.env.DB_HOST,
-    port: parseInt(process.env.DB_PORT),
-    database: process.env.DB_NAME
-}
-console.log(databaseConfig);
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT),
+  database: process.env.DB_NAME,
+};
 
 const connection = new Pool(databaseConfig);
 
