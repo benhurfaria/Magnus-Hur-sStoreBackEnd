@@ -1,11 +1,11 @@
-import '../setup.js';
-import app from '../app.js';
+import '../src/setup.js';
+import app from '../src/app.js';
 import supertest from 'supertest';
-import connection from '../database.js';
+import connection from '../src/database.js';
 import {
   validBodyFactorySignup,
   invalidBodyFactorySignup,
-} from '../factories/signup.factory.js';
+} from '../src/factories/signup.factory.js';
 
 afterAll(async () => {
   connection.end();
