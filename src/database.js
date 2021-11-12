@@ -10,7 +10,6 @@ const databaseConfig = {
   database: process.env.DB_NAME,
 };
 
-
 const connection = new Pool(databaseConfig);
 
 export default connection;
