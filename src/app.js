@@ -1,9 +1,11 @@
 /* eslint-disable no-console */
 import express from 'express';
 import cors from 'cors';
-// import bcrypt from 'bcrypt';
-// import { v4 as uuid } from 'uuid';
 import connection from './database.js';
+import { signIn } from './controllers/sign-in.js';
+import { signUp } from './controllers/sign-up.js';
+import { cartItens } from './controllers/cartItens.js';
+import { removeIten } from './controllers/removeIten.js';
 
 const app = express();
 app.use(cors());
@@ -20,32 +22,12 @@ app.post('/removefromcart', async (req, res) => {
   }
 });
 
-app.get('/cartitens/:id', async (req, res) => {
-  const id = Number(req.params.id);
-  try {
-    const cartItens = await connection.query(
-      `SELECT cart.id AS "cartId", "idUser", "cartProducts".id AS "cartProductsId", "idProducts", name, "unitaryPrice", qtd, "imgeUrl", descrition 
-        FROM cart JOIN "cartProducts" ON cart.id = "cartProducts"."idCart"                                                                                       
-        JOIN products ON "cartProducts"."idProducts"=products.id WHERE cart."idUser"=$1;
-        `,
-      [id],
-    );
-    if (cartItens.rowCount === 0) {
-      return res.status(404).send('Não existem itens no carrinho');
-    }
-    let qtd = 0;
-    cartItens.rows.forEach((iten) => {
-      qtd += iten.qtd;
-    });
-    const itensRows = {
-      qtd,
-      itens: cartItens.rows,
-    };
-    return res.status(200).send(itensRows);
-  } catch (error) {
-    console.log(error);
-    return res.sendStatus(500);
-  }
-});
+app.get('/cartitens/:id', cartItens);
+
+app.post('/sign-in', signIn);
+
+app.post('/sign-up', signUp);
+
+app.delete('/remove/:id', removeIten);
 
 export default app;

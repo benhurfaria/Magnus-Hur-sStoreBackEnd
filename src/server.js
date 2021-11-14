@@ -1,10 +1,10 @@
+/* eslint-disable no-console */
 import './setup.js';
 import app from './app.js';
-// import dot from 'dotenv';
 
-// app.listen(process.env.PORT, () => {
-//     console.log("Server running on port " + process.env.PORT);
+app.listen(process.env.PORT, () => {
+  // eslint-disable-next-line prefer-template
+  console.log('Server running on port ' + process.env.PORT);
+});
 
-// });
-
-app.listen(4000);
+// app.listen(4000);
