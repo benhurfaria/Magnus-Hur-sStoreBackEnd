@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import connection from '../database.js';
+import { connection } from '../database.js';
 import { signUpSchema } from '../../schemas/userSchema.js';
 
 async function signUp(req, res) {

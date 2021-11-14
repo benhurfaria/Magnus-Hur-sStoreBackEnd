@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import express from 'express';
 import cors from 'cors';
-import connection from './database.js';
+import { getProductById, getProducts, postProducts } from './controllers/products.js';
 import { signIn } from './controllers/sign-in.js';
 import { signUp } from './controllers/sign-up.js';
 import { cartItens } from './controllers/cartItens.js';
@@ -30,4 +30,11 @@ app.post('/sign-up', signUp);
 
 app.delete('/remove/:id', removeIten);
 
-export default app;
+// ------HOME------
+app.get('/products', getProducts);
+app.post('/products', postProducts);
+
+// ------PRODUCT PAGE------
+app.get('/products/:id', getProductById);
+
+export { app };

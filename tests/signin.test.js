@@ -3,10 +3,10 @@
 /* eslint-disable no-undef */
 import supertest from 'supertest';
 import bcrypt from 'bcrypt';
-import '../setup.js';
-import app from '../app.js';
-import connection from '../database.js';
-import { validBodyFactorySignup } from '../factories/signup.factory.js';
+import '../src/setup.js';
+import { app } from '../src/app.js';
+import { connection } from '../src/database.js';
+import { validBodyFactorySignup } from '../src/factories/signup.factory.js';
 
 afterAll(async () => {
   connection.end();

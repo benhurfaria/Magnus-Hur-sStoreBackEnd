@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
-import connection from '../database.js';
+import { connection } from '../database.js';
 import { signInSchema } from '../../schemas/userSchema.js';
 
 async function signIn(req, res) {

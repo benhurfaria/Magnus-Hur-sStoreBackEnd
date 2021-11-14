@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 import supertest from 'supertest';
-import '../setup.js';
-import app from '../app.js';
-import connection from '../database.js';
+import '../src/setup.js';
+import { app } from '../src/app.js';
+import { connection } from '../src/database.js';
 import {
   validBodyFactorySignup,
   invalidBodyFactorySignup,
-} from '../factories/signup.factory.js';
+} from '../src/factories/signup.factory.js';
 
 afterAll(async () => {
   connection.end();

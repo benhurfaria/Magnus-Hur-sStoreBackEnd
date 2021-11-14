@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
-import connection from '../database.js';
+import { connection } from '../database.js';
 
 async function cartItens(req, res) {
   const id = Number(req.params.id);
@@ -13,13 +13,16 @@ async function cartItens(req, res) {
           `,
       [id],
     );
+    if (cartitens.rowCount === 0) {
+      return res.status(404).send('sem itens');
+    }
     let qtd = 0;
     cartitens.rows.forEach((iten) => {
       qtd += iten.qtd;
     });
     const itensRows = {
       qtd,
-      itens: cartItens.rows,
+      itens: cartitens.rows,
     };
     return res.status(200).send(itensRows);
   } catch (error) {
