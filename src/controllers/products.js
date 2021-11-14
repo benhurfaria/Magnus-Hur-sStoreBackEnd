@@ -23,7 +23,7 @@ async function getProducts(req, res) {
     try {
         const products = await connection.query(`${query};`);
 
-        res.status(200).send(products.rows);
+        return res.status(200).send(products.rows);
 
     } catch (error) {
         return res.status(500).send({message: "O banco de dados está offline"});

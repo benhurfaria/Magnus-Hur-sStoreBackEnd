@@ -17,6 +17,7 @@ if (process.env.NODE_ENV === 'production') {
             rejectUnauthorized: false
         }
     }
+    console.log(process.env.DATABASE_URL)
 }
 
 const connection = new Pool(databaseConfig);
