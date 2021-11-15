@@ -24,5 +24,4 @@ async function authToken(req, res, next) {
 
   return next();
 }
-
 export { authToken };

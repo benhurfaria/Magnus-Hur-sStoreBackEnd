@@ -54,6 +54,7 @@ async function postProducts(req, res) {
                 (name, price, "imgeUrl", descrition)
             VALUES
                 ($1, $2, $3, $4);
+
         `,
       [name, price, imgeUrl, descrition],
     );

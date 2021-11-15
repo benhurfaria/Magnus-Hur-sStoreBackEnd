@@ -46,4 +46,3 @@ describe('GET /products/:id', () => {
     const { status } = result;
     expect(status).toEqual(200);
   });
-});
