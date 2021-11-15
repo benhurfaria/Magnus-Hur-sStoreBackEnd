@@ -1,86 +1,92 @@
-/* eslint-disable no-console */
-/* eslint-disable quotes */
-import { connection } from '../database.js';
-import { productSchema } from '../validation/products.js';
+import connection from "../database.js";
+import { productSchema } from "../validation/products.js";
 
 async function getProducts(req, res) {
-  const { ordenacao } = req.query;
+    const {
+        ordenacao
+    } = req.query;
 
-  let query = 'SELECT * FROM products ';
+    let query = 'SELECT * FROM products '
 
-  if (ordenacao === 'alpha') {
-    query += 'ORDER BY name ASC';
-  }
+    if (ordenacao === 'alpha') {
+        query += 'ORDER BY name ASC'
+    }
 
-  if (ordenacao === 'lowerPrice') {
-    query += 'ORDER BY price ASC';
-  }
+    if (ordenacao === 'lowerPrice') {
+        query += 'ORDER BY price ASC'
+    }
 
-  if (ordenacao === 'higherPrice') {
-    query += 'ORDER BY price DESC';
-  }
+    if (ordenacao === 'higherPrice') {
+        query += 'ORDER BY price DESC'
+    }
 
-  try {
-    const products = await connection.query(`${query};`);
+    try {
+        const products = await connection.query(`${query};`);
 
-    return res.status(200).send(products.rows);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({ message: 'O banco de dados está offline' });
-  }
+        res.status(200).send(products.rows);
+
+    } catch (error) {
+        return res.status(500).send({message: "O banco de dados está offline"});
+    }
 }
 
 async function postProducts(req, res) {
-  const {
-    name, price, imgeUrl, descrition,
-  } = req.body;
+    const {
+        name,
+        price,
+        imgeUrl,
+        descrition,
+    } = req.body;
 
-  const validate = productSchema.validate({
-    name,
-    price,
-    imgeUrl,
-    descrition,
-  });
+    const validate = productSchema.validate({
+        name,
+        price,
+        imgeUrl,
+        descrition,
+    })
 
-  if (validate.error) {
-    res.status(400).send(validate.error.message);
-    return;
-  }
+    if (validate.error) {
+        res.status(400).send(validate.error.message);
+        return
+    }
 
-  try {
-    await connection.query(
-      `
+    try {
+
+        await connection.query(`
             INSERT INTO products
                 (name, price, "imgeUrl", descrition)
             VALUES
                 ($1, $2, $3, $4);
-        `,
-      [name, price, imgeUrl, descrition],
-    );
+        `, [name, price, imgeUrl, descrition])
+        
+        return res.sendStatus(201);
 
-    res.sendStatus(201);
-  } catch (error) {
-    res.status(500).send({ message: 'O banco de dados está offline' });
-  }
+    } catch (error) {
+        return res.status(500).send({message: "O banco de dados está offline"});
+    }
 }
 
 async function getProductById(req, res) {
-  const { id } = req.params;
+    const {
+        id
+    } = req.params;
 
-  try {
-    const product = await connection.query(
-      `SELECT * FROM products WHERE id = $1;`,
-      [id],
-    );
+    try {
+        const product = await connection.query(`SELECT * FROM products WHERE id = $1;`, [id]);
 
-    if (!product.rowCount) {
-      return res.sendStatus(404);
+        if (!product.rowCount) {
+            return res.sendStatus(404);
+        }
+
+        return res.status(200).send(product.rows[0]);
+
+    } catch (error) {
+        return res.status(500).send({message: "O banco de dados está offline"});
     }
-
-    return res.status(200).send(product.rows[0]);
-  } catch (error) {
-    return res.status(500).send({ message: 'O banco de dados está offline' });
-  }
 }
 
-export { getProducts, postProducts, getProductById };
+export {
+    getProducts,
+    postProducts,
+    getProductById,
+}

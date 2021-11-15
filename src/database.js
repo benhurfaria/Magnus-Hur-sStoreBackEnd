@@ -11,6 +11,17 @@ let databaseConfig = {
   database: process.env.DB_NAME,
 };
 
+
+if (process.env.NODE_ENV === 'production') {
+    databaseConfig = {
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false
+        }
+    }
+}
+
+
 if (process.env.NODE_ENV === 'production') {
   databaseConfig = {
     connectionString: process.env.DATABASE_URL,

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import express from 'express';
 import cors from 'cors';
 import { getProductById, getProducts, postProducts } from './controllers/products.js';
@@ -27,6 +26,7 @@ app.get('/cartitens/:id', cartItens);
 app.post('/sign-in', signIn);
 
 app.post('/sign-up', signUp);
+
 
 app.delete('/remove/:id', removeIten);
 
