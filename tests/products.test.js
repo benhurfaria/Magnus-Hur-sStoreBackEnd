@@ -57,21 +57,25 @@ describe("POST /products", () => {
 });
 
 describe("GET /products/:id", () => {
+    let idValid;
+    async function getIdParams() {
+        idValid = await connection.query(`SELECT * FROM products;`);
+        idValid = idValid.rows[0].id;
+        return idValid;
+    }
     
     test("returns status 404 for invalid id", async () => {
-        let idValid = await connection.query(`SELECT * FROM products;`);
-        idValid = idValid.rows[0].id;
+        let id = await getIdParams();
         
-        const result = await supertest(app).get(`/products/${idValid+50}`);
+        const result = await supertest(app).get(`/products/${id+50}`);
         const status = result.status;
         expect(status).toEqual(404);
     });
 
     test("returns status 200 for valid id", async () => {
-        let idValid = await connection.query(`SELECT * FROM products;`);
-        idValid = idValid.rows[0].id;
-        
-        const result = await supertest(app).get(`/products/${idValid}`);
+        let id = await getIdParams();
+
+        const result = await supertest(app).get(`/products/${id}`);
         const status = result.status;
         expect(status).toEqual(200);
     });
