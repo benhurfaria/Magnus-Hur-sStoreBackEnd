@@ -13,15 +13,8 @@ async function cartItens(req, res) {
           `,
       [id],
     );
-    if (cartitens.rowCount === 0) {
-      return res.status(404).send('sem itens');
-    }
-    let qtd = 0;
-    cartitens.rows.forEach((iten) => {
-      qtd += iten.qtd;
-    });
     const itensRows = {
-      qtd,
+      qtd: cartitens.rowCount,
       itens: cartitens.rows,
     };
     return res.status(200).send(itensRows);

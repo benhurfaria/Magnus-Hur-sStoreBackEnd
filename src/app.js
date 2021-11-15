@@ -6,6 +6,7 @@ import { signIn } from './controllers/sign-in.js';
 import { signUp } from './controllers/sign-up.js';
 import { cartItens } from './controllers/cartItens.js';
 import { removeIten } from './controllers/removeIten.js';
+import { addtocart } from './controllers/addtocart.js';
 
 const app = express();
 app.use(cors());
@@ -36,5 +37,7 @@ app.post('/products', postProducts);
 
 // ------PRODUCT PAGE------
 app.get('/products/:id', getProductById);
+
+app.post('/addtocart/:id', addtocart);
 
 export { app };

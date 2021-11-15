@@ -24,7 +24,9 @@ describe('POST /sign-in', () => {
   });
 
   afterAll(async () => {
+    await connection.query(`DELETE FROM "cartProducts";`);
     await connection.query(`DELETE FROM sessions;`);
+    await connection.query(`DELETE FROM cart;`);
     await connection.query(`DELETE FROM usuario;`);
   });
 

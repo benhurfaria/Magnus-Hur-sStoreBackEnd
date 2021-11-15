@@ -1,7 +1,18 @@
+/* eslint-disable no-console */
+/* eslint-disable quotes */
 /* eslint-disable no-undef */
 import supertest from 'supertest';
 import '../src/setup.js';
 import { app } from '../src/app';
+import { connection } from '../src/database.js';
+
+beforeAll(async () => {
+  await connection.query(`insert into products(name, price, descrition, "imgeUrl") values('teste', 1000, 'teste', 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg')`);
+});
+afterAll(async () => {
+  await connection.query('DELETE FROM products;');
+  connection.end();
+});
 
 describe('GET /products', () => {
   test('returns status 200 for get products', async () => {
@@ -36,13 +47,13 @@ describe('POST /products', () => {
 
 describe('GET /products/:id', () => {
   test('returns status 404 for invalid id', async () => {
-    const result = await supertest(app).get('/products/50');
+    const result = await supertest(app).get('/products/1');
     const { status } = result;
     expect(status).toEqual(404);
   });
-
   test('returns status 200 for valid id', async () => {
-    const result = await supertest(app).get('/products/1');
+    const id = await connection.query('select * from products;');
+    const result = await supertest(app).get(`/products/${id.rows[0].id}`);
     const { status } = result;
     expect(status).toEqual(200);
   });
