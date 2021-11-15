@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import supertest from 'supertest';
 import '../src/setup.js';
-import app from '../src/app';
+import { app } from '../src/app';
 
 describe('GET /products', () => {
   test('returns status 200 for get products', async () => {
@@ -46,3 +46,4 @@ describe('GET /products/:id', () => {
     const { status } = result;
     expect(status).toEqual(200);
   });
+});
