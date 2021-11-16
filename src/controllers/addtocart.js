@@ -3,9 +3,14 @@ import { connection } from '../database.js';
 
 async function addtocart(req, res) {
   const id = Number(req.params.id);
+  const { authorization } = req.headers;
+  const token = authorization?.replace('Bearer ', '');
   const productsInfo = req.body;
   try {
-    const user = await connection.query('SELECT * FROM sessions WHERE sessions."idUser" = $1', [id]);
+    const user = await connection.query(` SELECT * FROM sessions
+    JOIN usuario
+    ON sessions."userId" = users.id
+    WHERE sessions.token = $1;`, [token]);
     if (user.rowCount === 0) {
       return res.status(404);
     }

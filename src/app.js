@@ -36,6 +36,6 @@ app.post('/products', postProducts);
 // ------PRODUCT PAGE------
 app.get('/products/:id', getProductById);
 
-app.post('/addtocart/:id', addtocart);
+app.post('/addtocart', addtocart);
 
 export { app };
