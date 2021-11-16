@@ -8,7 +8,7 @@ async function signOut(req, res) {
       `
             DELETE FROM sessions WHERE token = $1;
         `,
-      [token]
+      [token],
     );
     res.sendStatus(200);
   } catch (err) {
