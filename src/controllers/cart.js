@@ -48,4 +48,30 @@ async function addToCart(req, res) {
   }
 }
 
-export { addToCart };
+async function getCartItems(req, res) {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+  console.log(token);
+  try {
+    let cart = await connection.query(
+      `
+        SELECT "cartProducts".*
+        FROM "cartProducts"
+        JOIN cart
+            ON cart.id = "cartProducts"."idCart"
+        JOIN usuario
+            ON cart."idUser" = usuario.id
+        JOIN sessions
+            ON sessions."idUser" = usuario.id
+        WHERE token = $1;`,
+      [token]
+    );
+
+    console.log(cart.rows);
+
+    res.status(200).send(cart.rows);
+  } catch (error) {
+    return res.status(500).send({ message: 'O banco de dados está offline' });
+  }
+}
+
+export { addToCart, getCartItems };

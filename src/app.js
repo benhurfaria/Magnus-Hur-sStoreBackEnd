@@ -10,7 +10,7 @@ import {
 import { signIn } from './controllers/sign-in.js';
 import { signUp } from './controllers/sign-up.js';
 import { authToken } from './middlewares/auth.js';
-import { addToCart } from './controllers/cart.js';
+import { addToCart, getCartItems } from './controllers/cart.js';
 
 const app = express();
 app.use(cors());
@@ -29,5 +29,6 @@ app.get('/products/:id', getProductById);
 
 // ------BUY A PRODUCT------
 app.post('/add', authToken, addToCart);
+app.get('/cart', authToken, getCartItems);
 
 export default app;
