@@ -21,7 +21,7 @@ async function sales(req, res) {
     }
     await connection.query('DELETE FROM "cartProducts";');
     await connection.query('DELETE FROM cart;');
-    return res.sendStatus(200);
+    return res.status(200).send(itens);
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);
