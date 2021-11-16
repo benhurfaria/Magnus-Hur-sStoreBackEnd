@@ -22,7 +22,7 @@ app.post('/removefromcart', async (req, res) => {
   }
 });
 
-app.get('/cartitens/:id', cartItens);
+app.get('/cartitens', cartItens);
 
 app.post('/sign-in', signIn);
 
@@ -39,6 +39,6 @@ app.post('/products', postProducts);
 // ------PRODUCT PAGE------
 app.get('/products/:id', getProductById);
 
-app.post('/addtocart/:id', addtocart);
+app.post('/addtocart', addtocart);
 
 export { app };
