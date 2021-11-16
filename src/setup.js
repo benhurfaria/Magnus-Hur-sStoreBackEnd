@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import dotenv from 'dotenv';
 
 const path =

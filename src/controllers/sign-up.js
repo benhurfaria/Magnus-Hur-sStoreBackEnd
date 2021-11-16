@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import connection from '../database.js';
+import { connection } from '../database.js';
 import { signUpSchema } from '../../schemas/userSchema.js';
 
 async function signUp(req, res) {
@@ -19,7 +19,7 @@ async function signUp(req, res) {
       `
             INSERT INTO usuario (name, email, password) VALUES ($1, $2, $3);
         `,
-      [name, email, encryptedPassword]
+      [name, email, encryptedPassword],
     );
 
     res.sendStatus(200);

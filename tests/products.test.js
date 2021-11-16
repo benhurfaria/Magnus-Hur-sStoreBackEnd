@@ -21,15 +21,17 @@ beforeAll(async () => {
     [validBody.name, validBody.price, validBody.imgeUrl, validBody.descrition]
   );
 });
-
 afterAll(async () => {
-  await connection.query(`DELETE FROM products;`);
+  await connection.query('DELETE FROM products;');
+  connection.end();
 });
 
 describe('GET /products', () => {
   test('returns status 200 for get products', async () => {
     const result = await supertest(app).get('/products');
+    
     const status = result.status;
+    
     expect(status).toEqual(200);
   });
 });
@@ -41,12 +43,14 @@ describe('POST /products', () => {
   test('returns status 201 for valid body', async () => {
     const result = await supertest(app).post('/products').send(validBody);
     const status = result.status;
+
     expect(status).toEqual(201);
   });
 
   test('returns status 400 for invalid body', async () => {
     const result = await supertest(app).post('/products').send(invalidBody);
     const status = result.status;
+    
     expect(status).toEqual(400);
   });
 });
@@ -56,6 +60,7 @@ describe('GET /products/:id', () => {
   async function getIdParams() {
     idValid = await connection.query(`SELECT * FROM products;`);
     idValid = idValid.rows[0].id;
+    
     return idValid;
   }
 
@@ -64,6 +69,7 @@ describe('GET /products/:id', () => {
 
     const result = await supertest(app).get(`/products/${id + 50}`);
     const status = result.status;
+    
     expect(status).toEqual(404);
   });
 
@@ -72,6 +78,7 @@ describe('GET /products/:id', () => {
 
     const result = await supertest(app).get(`/products/${id}`);
     const status = result.status;
+    
     expect(status).toEqual(200);
   });
 });
