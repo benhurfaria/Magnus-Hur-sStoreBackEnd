@@ -9,11 +9,8 @@ async function authToken(req, res, next) {
   }
 
   const key = process.env.JWT_SECRET;
-  console.log(jwt.verify(token, key));
   try {
-    console.log(jwt.verify(token, key));
     const validateToken = jwt.verify(token, key);
-    console.log({ validateToken });
   } catch (error) {
     return res.sendStatus(401);
   }
