@@ -1,4 +1,4 @@
-import connection from '../database.js';
+import { connection } from '../database.js';
 
 async function signOut(req, res) {
   const token = req.headers.authorization?.replace('Bearer ', '');
