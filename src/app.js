@@ -5,6 +5,7 @@ import { getProductById, getProducts, postProducts } from './controllers/product
 
 import { signIn } from './controllers/sign-in.js';
 import { signUp } from './controllers/sign-up.js';
+import { signOut } from './controllers/sign-out.js';
 
 const app = express();
 app.use(cors());
@@ -14,6 +15,7 @@ app.post('/sign-in', signIn);
 
 app.post('/sign-up', signUp);
 
+app.delete('/sign-out', signOut);
 // ------HOME------
 app.get('/products', getProducts);
 app.post('/products', postProducts);
