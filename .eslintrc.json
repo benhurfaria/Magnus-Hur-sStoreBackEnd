@@ -19,12 +19,10 @@
             {
                 "js": "ignorePackages"
             }
-
            ],
            "no-unused-vars":"off",
            "import/prefer-default-export": "off",
-           "trailing-comma": 0
-
+           "trailing-comma": false,
     }
     
 }

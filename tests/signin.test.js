@@ -1,12 +1,9 @@
-/* eslint-disable quotes */
-/* eslint-disable prefer-template */
-/* eslint-disable no-undef */
-import supertest from 'supertest';
-import bcrypt from 'bcrypt';
 import '../src/setup.js';
-import { app } from '../src/app.js';
-import { connection } from '../src/database.js';
+import app from '../src/app.js';
+import supertest from 'supertest';
+import connection from '../src/database.js';
 import { validBodyFactorySignup } from '../src/factories/signup.factory.js';
+import bcrypt from 'bcrypt';
 
 afterAll(async () => {
   connection.end();
@@ -19,14 +16,12 @@ describe('POST /sign-in', () => {
   beforeAll(async () => {
     await connection.query(
       `INSERT INTO usuario (name, email, password) VALUES ($1, $2, $3);`,
-      [validBody.name, validBody.email, password1],
+      [validBody.name, validBody.email, password1]
     );
   });
 
   afterAll(async () => {
-    await connection.query(`DELETE FROM "cartProducts";`);
     await connection.query(`DELETE FROM sessions;`);
-    await connection.query(`DELETE FROM cart;`);
     await connection.query(`DELETE FROM usuario;`);
   });
 
