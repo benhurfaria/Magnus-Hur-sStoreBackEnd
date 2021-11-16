@@ -3,7 +3,8 @@
 import supertest from 'supertest';
 import { v4 as uuid } from 'uuid';
 import '../src/setup.js';
-import { app } from '../src/app.js';
+// eslint-disable-next-line import/named
+import app from '../src/app.js';
 import { connection } from '../src/database.js';
 
 beforeAll(async () => {
