@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import bcrypt from 'bcrypt';
+// eslint-disable-next-line import/no-unresolved
 import jwt from 'jsonwebtoken';
 import { v4 as uuid } from 'uuid';
 import { connection } from '../database.js';
@@ -40,7 +41,7 @@ async function signIn(req, res) {
 
     const token = jwt.sign(idUser, key, config);
 
-    await connection.query(`DELETE FROM sessions WHERE "idUser" = $1;`, [
+    await connection.query('DELETE FROM sessions WHERE "idUser" = $1;', [
       idUser,
     ]);
 
@@ -48,7 +49,7 @@ async function signIn(req, res) {
       `
             INSERT INTO sessions ("idUser", token) VALUES ($1, $2);
         `,
-      [idUser, token]
+      [idUser, token],
     );
 
     res.status(200).send({
@@ -56,6 +57,7 @@ async function signIn(req, res) {
       id: user.rows[0].id,
     });
   } catch (error) {
+    // eslint-disable-next-line consistent-return
     return res.status(500).send({ message: 'O banco de dados está offline' });
   }
 }

@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 import supertest from 'supertest';
 import '../src/setup.js';
-import { app } from '../src/app.js';
+// eslint-disable-next-line import/named
+import app from '../src/app.js';
 import { connection } from '../src/database.js';
 import {
   validBodyFactorySignup,
@@ -18,6 +19,7 @@ describe('POST /sign-up', () => {
 
   afterAll(async () => {
     await connection.query(`
+            DELETE FROM sessions;
             DELETE FROM usuario;
         `);
   });

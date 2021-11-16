@@ -1,4 +1,4 @@
-import connection from '../database.js';
+import { connection } from '../database.js';
 
 async function addToCart(req, res) {
   const token = req.headers.authorization?.replace('Bearer ', '');
@@ -11,23 +11,25 @@ async function addToCart(req, res) {
             JOIN sessions
                 ON sessions."idUser" = usuario.id
             WHERE token = $1;`,
-      [token]
+      [token],
     );
+    // eslint-disable-next-line prefer-destructuring
     user = user.rows[0];
     let cart = await connection.query(
-      `SELECT * FROM cart WHERE "idUser" = $1;`,
-      [user.id]
+      'SELECT * FROM cart WHERE "idUser" = $1;',
+      [user.id],
     );
 
     if (!cart.rowCount) {
-      await connection.query(`INSERT INTO cart ("idUser") VALUES ($1);`, [
+      await connection.query('INSERT INTO cart ("idUser") VALUES ($1);', [
         user.id,
       ]);
-      cart = await connection.query(`SELECT * FROM cart WHERE "idUser" = $1;`, [
+      cart = await connection.query('SELECT * FROM cart WHERE "idUser" = $1;', [
         user.id,
       ]);
     }
 
+    // eslint-disable-next-line prefer-destructuring
     cart = cart.rows[0];
 
     if (user) {
@@ -38,7 +40,7 @@ async function addToCart(req, res) {
                 VALUES
                     ($1, $2, $3, $4);
             `,
-        [id, price, quant, cart.id]
+        [id, price, quant, cart.id],
       );
     }
 

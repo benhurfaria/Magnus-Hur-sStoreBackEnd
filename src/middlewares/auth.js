@@ -1,5 +1,6 @@
-import { connection } from '../database.js';
+// eslint-disable-next-line import/no-unresolved
 import jwt from 'jsonwebtoken';
+import { connection } from '../database.js';
 
 async function authToken(req, res, next) {
   const token = req.headers.authorization?.replace('Bearer ', '');

@@ -8,7 +8,6 @@ import {
   postProducts,
 } from './controllers/products.js';
 
-import { getProductById, getProducts, postProducts } from './controllers/products.js';
 import { signIn } from './controllers/sign-in.js';
 import { signUp } from './controllers/sign-up.js';
 import { signOut } from './controllers/sign-out.js';
