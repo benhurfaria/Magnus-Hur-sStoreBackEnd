@@ -1,4 +1,4 @@
-import { connection } from '../database.js';
+import connection from '../database.js';
 import jwt from 'jsonwebtoken';
 
 async function authToken(req, res, next) {
@@ -22,16 +22,18 @@ async function authToken(req, res, next) {
             JOIN sessions
                 ON usuario.id = sessions."idUser"
         WHERE sessions.token = $1;
-    `, [token],
+    `,
+      [token]
     );
 
     if (!searchUser) {
       return res.sendStatus(401);
     }
 
-    return next();
+    next();
   } catch (error) {
     return res.status(500).send({ message: 'O banco de dados está offline' });
   }
 }
+
 export { authToken };

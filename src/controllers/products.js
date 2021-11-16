@@ -1,4 +1,4 @@
-import { connection } from '../database.js';
+import connection from '../database.js';
 import { productSchema } from '../validation/products.js';
 
 async function getProducts(req, res) {
@@ -28,10 +28,8 @@ async function getProducts(req, res) {
 }
 
 async function postProducts(req, res) {
-  const {
-    name, price, imgeUrl, descrition,
-  } = req.body;
-  
+  const { name, price, imgeUrl, descrition } = req.body;
+
   const validate = productSchema.validate({
     name,
     price,
@@ -52,7 +50,7 @@ async function postProducts(req, res) {
             VALUES
                 ($1, $2, $3, $4);
         `,
-      [name, price, imgeUrl, descrition],
+      [name, price, imgeUrl, descrition]
     );
 
     return res.sendStatus(201);
@@ -67,7 +65,7 @@ async function getProductById(req, res) {
   try {
     const product = await connection.query(
       `SELECT * FROM products WHERE id = $1;`,
-      [id],
+      [id]
     );
 
     if (!product.rowCount) {

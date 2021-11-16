@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
-import supertest from 'supertest';
 import '../src/setup.js';
-import { app } from '../src/app.js';
-import { connection } from '../src/database.js';
+import app from '../src/app.js';
+import supertest from 'supertest';
+import connection from '../src/database.js';
 import {
   validBodyFactorySignup,
   invalidBodyFactorySignup,
