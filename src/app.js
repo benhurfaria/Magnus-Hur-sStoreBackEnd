@@ -15,10 +15,8 @@ app.use(express.json());
 app.post('/removefromcart', async (req, res) => {
   const { id } = req.body;
   try {
-    console.log(id);
     res.status(200).send({ id });
   } catch (error) {
-    console.log(error);
     res.sendStatus(500);
   }
 });

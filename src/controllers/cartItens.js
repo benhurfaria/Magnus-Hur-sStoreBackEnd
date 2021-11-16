@@ -19,7 +19,6 @@ async function cartItens(req, res) {
     };
     return res.status(200).send(itensRows);
   } catch (error) {
-    console.log(error);
     return res.sendStatus(500);
   }
 }
