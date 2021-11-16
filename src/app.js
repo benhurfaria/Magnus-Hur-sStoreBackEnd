@@ -1,10 +1,16 @@
 import express from 'express';
 import cors from 'cors';
 
-import { getProductById, getProducts, postProducts } from './controllers/products.js';
+import {
+  getProductById,
+  getProducts,
+  postProducts,
+} from './controllers/products.js';
 
 import { signIn } from './controllers/sign-in.js';
 import { signUp } from './controllers/sign-up.js';
+import { authToken } from './middlewares/auth.js';
+import { addToCart } from './controllers/cart.js';
 
 const app = express();
 app.use(cors());
@@ -20,5 +26,8 @@ app.post('/products', postProducts);
 
 // ------PRODUCT PAGE------
 app.get('/products/:id', getProductById);
+
+// ------BUY A PRODUCT------
+app.post('/add', authToken, addToCart);
 
 export default app;

@@ -1,5 +1,6 @@
 import connection from '../database.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { v4 as uuid } from 'uuid';
 import { signInSchema } from '../../schemas/userSchema.js';
 
@@ -32,19 +33,29 @@ async function signIn(req, res) {
       return;
     }
 
-    const token = uuid();
+    const idUser = user.rows[0].id;
+    const key = process.env.JWT_SECRET;
+    const config = { expiresIn: 60 * 60 * 24 * 2 }; // 2 dias em segundos
+
+    const token = jwt.sign(idUser, key, config);
+
+    await connection.query(`DELETE FROM sessions WHERE "idUser" = $1;`, [
+      idUser,
+    ]);
 
     await connection.query(
       `
             INSERT INTO sessions ("idUser", token) VALUES ($1, $2);
         `,
-      [user.rows[0].id, token]
+      [idUser, token]
     );
 
     res.status(200).send({
       token,
     });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).send({ message: 'O banco de dados está offline' });
+  }
 }
 
 export { signIn };

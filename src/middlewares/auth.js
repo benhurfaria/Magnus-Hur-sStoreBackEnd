@@ -1,25 +1,42 @@
-import connection from '../database/database.js';
+import connection from '../database.js';
+import jwt from 'jsonwebtoken';
 
 async function authToken(req, res, next) {
-	const token = req.headers.authorization?.replace('Bearer ', '');
+  const token = req.headers.authorization?.replace('Bearer ', '');
 
-    if (!token) {
-		return res.sendStatus(401);
-	}
+  if (!token) {
+    return res.sendStatus(401);
+  }
 
-	const searchUser = await connection.query(`
+  const key = process.env.JWT_SECRET;
+  console.log(jwt.verify(token, key));
+  try {
+    console.log(jwt.verify(token, key));
+    const validateToken = jwt.verify(token, key);
+    console.log({ validateToken });
+  } catch (error) {
+    return res.sendStatus(401);
+  }
+  try {
+    const searchUser = await connection.query(
+      `
         SELECT *
         FROM usuario
             JOIN sessions
                 ON usuario.id = sessions."idUser"
         WHERE sessions.token = $1;
-    `, [token]);
+    `,
+      [token]
+    );
 
-	if (!searchUser) {
-		return res.sendStatus(401);
-	}
+    if (!searchUser) {
+      return res.sendStatus(401);
+    }
 
-	next();
+    next();
+  } catch (error) {
+    return res.status(500).send({ message: 'O banco de dados está offline' });
+  }
 }
 
 export { authToken };
