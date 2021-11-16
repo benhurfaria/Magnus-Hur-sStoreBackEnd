@@ -21,7 +21,7 @@ app.post('/removefromcart', async (req, res) => {
   }
 });
 
-app.get('/cartitens/:id', cartItens);
+app.get('/cartitens', cartItens);
 
 app.post('/sign-in', signIn);
 

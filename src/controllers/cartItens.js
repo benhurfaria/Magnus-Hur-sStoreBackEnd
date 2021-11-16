@@ -1,17 +1,26 @@
 /* eslint-disable no-console */
-import bcrypt from 'bcrypt';
-import { v4 as uuid } from 'uuid';
 import { connection } from '../database.js';
 
 async function cartItens(req, res) {
-  const id = Number(req.params.id);
+  const { authorization } = req.headers;
+  const token = authorization?.replace('Bearer ', '');
   try {
+    const user = await connection.query(` SELECT * FROM sessions
+    JOIN usuario
+    ON sessions."idUser" = usuario.id
+    WHERE sessions.token = $1;`, [token]); if (user.rowCount === 0) {
+      const itensRows = {
+        qtd: user.rowCount,
+        itens: user.rows,
+      };
+      return res.send(itensRows);
+    }
     const cartitens = await connection.query(
       `SELECT cart.id AS "cartId", "idUser", "cartProducts".id AS "cartProductsId", "idProducts", name, "unitaryPrice", qtd, "imgeUrl", descrition 
           FROM cart JOIN "cartProducts" ON cart.id = "cartProducts"."idCart"                                                                                       
           JOIN products ON "cartProducts"."idProducts"=products.id WHERE cart."idUser"=$1;
           `,
-      [id],
+      [user.rows[0].idUser],
     );
     const itensRows = {
       qtd: cartitens.rowCount,
@@ -19,7 +28,8 @@ async function cartItens(req, res) {
     };
     return res.status(200).send(itensRows);
   } catch (error) {
-    return res.sendStatus(500);
+    console.log(error);
+    return res.status(500);
   }
 }
 
