@@ -1,6 +1,7 @@
-import connection from '../database.js';
+/* eslint-disable no-console */
 import bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
+import { connection } from '../database.js';
 import { signInSchema } from '../../schemas/userSchema.js';
 
 async function signIn(req, res) {
@@ -12,13 +13,13 @@ async function signIn(req, res) {
   }
 
   const { email, password } = req.body;
-
+  console.log(email, password);
   try {
     const user = await connection.query(
       `
             SELECT * FROM usuario WHERE email = $1;
         `,
-      [email]
+      [email],
     );
 
     if (user.rowCount === 0) {
@@ -38,13 +39,17 @@ async function signIn(req, res) {
       `
             INSERT INTO sessions ("idUser", token) VALUES ($1, $2);
         `,
-      [user.rows[0].id, token]
+      [user.rows[0].id, token],
     );
 
     res.status(200).send({
       token,
+      id: user.rows[0].id,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
 }
 
 export { signIn };
