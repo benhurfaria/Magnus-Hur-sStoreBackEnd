@@ -7,7 +7,6 @@ import '../src/setup.js';
 import { app } from '../src/app.js';
 import { connection } from '../src/database.js';
 
-// jest.setTimeout(60000);
 beforeAll(async () => {
   await connection.query("insert into usuario(name,password, email) values('joa', '123456', 'al@g.com' );");
   const userId = await connection.query('select * from usuario;');

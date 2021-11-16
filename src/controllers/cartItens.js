@@ -8,7 +8,8 @@ async function cartItens(req, res) {
     const user = await connection.query(` SELECT * FROM sessions
     JOIN usuario
     ON sessions."idUser" = usuario.id
-    WHERE sessions.token = $1;`, [token]); if (user.rowCount === 0) {
+    WHERE sessions.token = $1;`, [token]);
+    if (user.rowCount === 0) {
       const itensRows = {
         qtd: user.rowCount,
         itens: user.rows,

@@ -8,19 +8,13 @@ import { signOut } from './controllers/sign-out.js';
 import { cartItens } from './controllers/cartItens.js';
 import { removeIten } from './controllers/removeIten.js';
 import { addtocart } from './controllers/addtocart.js';
+import { sales } from './controllers/sales.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post('/removefromcart', async (req, res) => {
-  const { id } = req.body;
-  try {
-    res.status(200).send({ id });
-  } catch (error) {
-    res.sendStatus(500);
-  }
-});
+app.post('/sales', sales);
 
 app.get('/cartitens', cartItens);
 
