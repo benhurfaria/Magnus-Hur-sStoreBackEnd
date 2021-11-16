@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable quotes */
 import { connection } from '../database.js';
 import { productSchema } from '../validation/products.js';
 
@@ -33,7 +31,7 @@ async function postProducts(req, res) {
   const {
     name, price, imgeUrl, descrition,
   } = req.body;
-
+  
   const validate = productSchema.validate({
     name,
     price,
@@ -57,9 +55,9 @@ async function postProducts(req, res) {
       [name, price, imgeUrl, descrition],
     );
 
-    res.sendStatus(201);
+    return res.sendStatus(201);
   } catch (error) {
-    res.status(500).send({ message: 'O banco de dados está offline' });
+    return res.status(500).send({ message: 'O banco de dados está offline' });
   }
 }
 

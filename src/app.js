@@ -1,6 +1,13 @@
 /* eslint-disable no-console */
 import express from 'express';
 import cors from 'cors';
+
+import {
+  getProductById,
+  getProducts,
+  postProducts,
+} from './controllers/products.js';
+
 import { getProductById, getProducts, postProducts } from './controllers/products.js';
 import { signIn } from './controllers/sign-in.js';
 import { signUp } from './controllers/sign-up.js';
@@ -8,6 +15,9 @@ import { signOut } from './controllers/sign-out.js';
 import { cartItens } from './controllers/cartItens.js';
 import { removeIten } from './controllers/removeIten.js';
 import { addtocart } from './controllers/addtocart.js';
+
+import { authToken } from './middlewares/auth.js';
+import { addToCart } from './controllers/cart.js';
 
 const app = express();
 app.use(cors());
@@ -41,4 +51,7 @@ app.get('/products/:id', getProductById);
 
 app.post('/addtocart', addtocart);
 
-export { app };
+// ------BUY A PRODUCT------
+app.post('/add', authToken, addToCart);
+
+export default app;
